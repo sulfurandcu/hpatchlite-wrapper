@@ -30,7 +30,7 @@ hpi_BOOL _do_read_empty(struct hpatchi_listener_t *listener, hpi_pos_t addr, hpi
 // 以数据流的形式读取旧程序
 hpi_BOOL _do_read_old(struct hpatchi_listener_t *listener, hpi_pos_t addr, hpi_byte *data, hpi_size_t size)
 {
-    int result = update_fetch_runapp(addr, data, size);
+    int result = fal_read_old(addr, data, size);
     if (result < 0) { return hpi_FALSE; }
     return hpi_TRUE;
 }
@@ -46,7 +46,7 @@ hpi_BOOL _do_read_patch(hpi_TInputStreamHandle input_stream, hpi_byte *data, hpi
         *size = instance->patch_file_len - instance->patch_read_pos;
     }
 
-    int result = update_fetch_backup(instance->patch_file_offset + instance->patch_read_pos, data, *size);
+    int result = fal_read_patch(instance->patch_file_offset + instance->patch_read_pos, data, *size);
     if (result < 0) { return hpi_FALSE; }
     instance->patch_read_pos += *size;
     return hpi_TRUE;
@@ -63,7 +63,7 @@ hpi_BOOL _do_write_new(struct hpatchi_listener_t *listener, const hpi_byte *data
         rt_kprintf("\b\b\b%02d%%", percent);
     }
 
-    int result = update_write_decode(instance->newer_write_pos, (unsigned char *)data, size);
+    int result = fal_write_new(instance->newer_write_pos, (unsigned char *)data, size);
     if (result < 0) { return hpi_FALSE; }
     instance->newer_write_pos += size;
     return hpi_TRUE;
@@ -72,9 +72,9 @@ hpi_BOOL _do_write_new(struct hpatchi_listener_t *listener, const hpi_byte *data
 void demo(void)
 {
     hpatchi_instance_t instance = {0};
-    instance.patch_file_offset  = update_pack->header_size; // 从升级包的包头中获取差分数据的地址
-    instance.patch_file_len     = update_pack->remain_size; // 从升级包的包头中获取差分数据的大小
-    instance.newer_file_len     = update_pack->newapp_size; // 从升级包的包头中获取新版程序的大小
+    instance.patch_file_offset  = ; // 从升级包的包头中获取差分数据的地址
+    instance.patch_file_len     = ; // 从升级包的包头中获取差分数据的大小
+    instance.newer_file_len     = ; // 从升级包的包头中获取新版程序的大小
 
     // 差分全量升级
     {
