@@ -14,6 +14,6 @@ src  = Glob('hpatch_impl.c')
 src += Glob('decompresser/tinyuz/*.c')
 src += Glob('hpatch/HPatchLite/*.c')
 
-group = DefineGroup('hpatchlite', src, depend = ['PKG_USING_HPATCHLITE_WRAPPER'], CPPPATH = inc)
+group = DefineGroup('hpatchlite', src, depend = ['PKG_USING_HPATCHLITE'], CPPPATH = inc)
 
 Return('group')
