@@ -34,6 +34,8 @@ hpi_patch_result_t hpi_patch(hpatchi_listener_t *listener,
 
 ## 使用示例
 
+- 参考`hpatch_demo.c`
+
 ```c
 #include "hpatch_impl.h"
 
@@ -94,6 +96,9 @@ void demo_patch_update(void)
     }
 }
 ```
+
+## 注意事项
+- `hpatch-lite`具有另一个api`hpatchi_inplaceB`原地升级功能.使用demo中的swap功能效果一致,但是需要打包时进行额外的选项打包.**暂未支持**
 
 ## 补丁文件结构
 
